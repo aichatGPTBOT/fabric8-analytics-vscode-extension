@@ -37,7 +37,7 @@ In future releases, Red Hat plans to support other programming languages.
 - For Golang projects, analyzing a `go.mod` file, you must have the `go` binary in your system’s `PATH` environment.
 - For Python projects, analyzing a `requirements.txt` file, you must have the `python3/pip3` or `python/pip` binaries in your system’s `PATH` environment.
 - For Gradle projects, analyzing a `build.gradle` file, you must have the `gradle` binary in your system's `PATH` environment.
-- For base images in a `Dockerfile`.
+- For base images in a `Dockerfile` or `Containerfile`, you must have `Java version 20` or later.
 
 <br >**IMPORTANT:** 
 <br >Visual Studio Code by default executes binaries directly in a terminal found in your system's `PATH` environment.
@@ -265,8 +265,19 @@ The default path is `/tmp/redhatDependencyAnalyticsReport.html`.
 	)
 	```
 
-	For example, creating an alternative file to `requirements.txt`, like `requirements-dev.txt` or `requirements-test.txt` and adding the dev or test dependencies there instead.
+	For example, setting a dependency as test in the `build.gradle` file by placing it under one of the test configurations: `testImplementation`, `testCompileOnly`, `testRuntimeOnly`
 
+	```gradle
+	dependencies {
+		implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.7.4'
+    	testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.7.4'
+		testCompileOnly 'junit:junit:4.13.1'
+		testRuntimeOnly 'org.mockito:mockito-core:3.3.3'
+	}
+	```
+
+	For example, creating an alternative file to `requirements.txt`, like `requirements-dev.txt` or `requirements-test.txt` and adding the dev or test dependencies there instead.
+	
 - **Red Hat Dependency Analytics report** 
 	<br >The Red Hat Dependency Analytics report is a temporary HTML file that exist if the **Red Hat Dependency Analytics Report** tab remains open.
 	Closing the tab removes the temporary HTML file.
